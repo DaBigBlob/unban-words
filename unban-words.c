@@ -26,8 +26,10 @@ void cpstr(char *dst, char *src) {
     unsigned int z = 0;
     while ((dst[z] != '\0')&&(src[z] != '\0')) {
         dst[z] = src[z];
+        printf("\ncopied %c\n", src[z]);
         z++;
     }
+    printf("\ndone cpstr for %s\n\n", src);
 }
 
 int main(int argc, char **argv) {
@@ -41,10 +43,10 @@ int main(int argc, char **argv) {
         return(0);
     }
 
-    char alt_lower[26][4] = {"nope", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
-    char alt_upper[26][4] = {"aa", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
+    char alt_lower[26][4] = {"а", "b", "c", "d", "e", "f", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
+    char alt_upper[26][4] = {"A", "B", "C", "D", "E", "F", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
     unsigned short index;
-    char final_letter[4] = {0, 0, 0, 0};
+    //char final_letter[4] = {0, 0, 0, 0};
     unsigned int letters_done = 0;
 
     //do the stuff
@@ -59,16 +61,19 @@ int main(int argc, char **argv) {
         
         //do the stuff stuff
         if ((index >= 65)&&(index <= 90)) { //upper case
-            cpstr(final_letter, alt_upper[index % 65]);
+            printf("%s", alt_upper[index % 65]);
+            letters_done++;
         } else if ((index >= 97)&&(index <= 122)) { //lower case
-            cpstr(final_letter, alt_lower[index % 97]);
+            printf("%s", alt_lower[index % 97]);
+            letters_done++;
         } else {
-            final_letter[0] = index;
+            printf("%c", index);
         }
-        
-        printf("%s", final_letter);
     }
     printf("\n");//end line after unbanned word
 
+    if (letters_done == 0) {
+        printf("\n⚠️   Could not modify.\n👋  Bye!\n");
+    }
     return(0);
 }
