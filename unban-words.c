@@ -35,7 +35,6 @@ int main(int argc, char **argv) {
     char alt_lower[26][4] = {"а", "b", "c", "d", "e", "f", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
     char alt_upper[26][4] = {"A", "B", "C", "D", "E", "F", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
     unsigned short index;
-    //char final_letter[4] = {0, 0, 0, 0};
     unsigned int letters_done = 0;
 
     //do the stuff
