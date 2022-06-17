@@ -21,17 +21,6 @@ unsigned short cmpstr(char *str1, char *str2) {
     return(0);
 }
 
-//i write my own string compare function 💪
-void cpstr(char *dst, char *src) {
-    unsigned int z = 0;
-    while ((dst[z] != '\0')&&(src[z] != '\0')) {
-        dst[z] = src[z];
-        printf("\ncopied %c\n", src[z]);
-        z++;
-    }
-    printf("\ndone cpstr for %s\n\n", src);
-}
-
 int main(int argc, char **argv) {
     //first deal with argument errors
     if (argc != 2) {
