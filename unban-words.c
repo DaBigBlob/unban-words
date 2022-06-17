@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 void print_help() {
-    printf("\n🚀  Usage: unbanwd <banned word>\n    For help: unbanwd help\n\n✏️  e.g. 1: unbanwd ligma\n✏️  e.g. 2: unbanwd balls\n\n👋  Bye!\n");
+    printf("\n🚀  Usage: unbanwd <banned word>\n    For help: unbanwd --help\n\n✏️  e.g. 1: unbanwd ligma\n✏️  e.g. 2: unbanwd balls\n\n👋  Bye!\n");
 }
 
 //i write my own string length function 💪
@@ -21,6 +21,14 @@ unsigned short cmpstr(char *str1, char *str2) {
     return(0);
 }
 
+//i write my own string compare function 💪
+void cpstr(char *dst, char *src) {
+    unsigned int z = 0;
+    while ((dst[z] != '\0')&&(src[z] != '\0')) {
+        dst[z] = src[z];
+        z++;
+    }
+}
 
 int main(int argc, char **argv) {
     //first deal with argument errors
@@ -28,34 +36,39 @@ int main(int argc, char **argv) {
         printf("\n⚠️   Too few/many arguments.\n");
         print_help();
         return(1);
-    } else if (cmpstr(argv[1], "help") == 0) {
+    } else if (cmpstr(argv[1], "--help") == 0) {
         print_help();
         return(0);
     }
 
-    char **alt_lower = {};
-    char **alt_upper = {};
+    char alt_lower[26][4] = {"nope", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
+    char alt_upper[26][4] = {"aa", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", };
     unsigned short index;
+    char final_letter[4] = {0, 0, 0, 0};
+    unsigned int letters_done = 0;
 
     //do the stuff
     for (int z = 0; z < lenstr(argv[1]); z++) {
+        index = argv[1][z];
+
         //make sure letter is ascii [no buffer overflow protection for utf-8]
-        if (argv[1][z] > 255) {
-            printf();
+        if (index > 255) {
+            printf("\n⚠️   Non-ASCII character found. Quit.\n👋  Bye!\n");
             return(1);
         }
         
         //do the stuff stuff
-        if ((argv[1][z] >= 65)&&(argv[1][z] <= 90)) { //lower case
-            printf("%s", alt_upper[argv[1][z]%65]);
-        } else if ((argv[1][z] >= 97)&&(argv[1][z] <= 122)) { //upper case
-            printf("%s", alt_upper[argv[1][z]%97]);
+        if ((index >= 65)&&(index <= 90)) { //upper case
+            cpstr(final_letter, alt_upper[index % 65]);
+        } else if ((index >= 97)&&(index <= 122)) { //lower case
+            cpstr(final_letter, alt_lower[index % 97]);
         } else {
-            printf("%s", argv[1][z]);
+            final_letter[0] = index;
         }
+        
+        printf("%s", final_letter);
     }
+    printf("\n");//end line after unbanned word
 
-    //test
-    printf("%d\n%c\n", lenstr(argv[1]), 0x0455);
     return(0);
 }
